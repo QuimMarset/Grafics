@@ -1,0 +1,19 @@
+#version 330 core
+
+layout (location = 0) in vec3 vertex;
+layout (location = 3) in vec2 texCoord;
+
+out vec4 frontColor;
+
+uniform float time;
+
+uniform mat4 modelViewProjectionMatrix;
+
+void main()
+{
+    frontColor = vec4(0,0,1,1);
+    float angle = -time*texCoord.s;
+    mat3 matriuRotacioY = mat3(vec3(cos(angle),0,-sin(angle)),vec3(0,1,0),vec3(sin(angle),0,cos(angle)));
+    vec3 vertexRotatY = matriuRotacioY*vertex;
+    gl_Position = modelViewProjectionMatrix * vec4(vertexRotatY, 1.0);
+}
